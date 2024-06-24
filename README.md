@@ -5,10 +5,10 @@ This repository demonstrates two state management solutions in Flutter: `provide
 ## Table of Contents
 
 - [About the App](#about-the-app)
+- [YouTube Video](#youtube-video)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [YouTube Video](#youtube-video)
 - [State Management Implementations](#state-management-implementations)
   - [Provider](#provider)
   - [Riverpod](#riverpod)
@@ -23,6 +23,10 @@ The app consists of 3 main features:
 1. **Counter Page**: Demonstrates a simple counter using `provider` and `riverpod`.
 2. **List Page**: Displays a list of items, managed separately by `provider` and `riverpod`.
 3. **Todos Page**: A sample App with `riverpod 2.0`:
+
+## YouTube Video
+
+For a detailed explanation and walkthrough, check out the [YouTube video](https://youtu.be/your-video-link).
 
 ## Getting Started
 
@@ -51,10 +55,6 @@ The app consists of 3 main features:
    ```bash
    flutter run
    ```
-
-## YouTube Video
-
-For a detailed explanation and walkthrough, check out the [YouTube video](https://youtu.be/your-video-link).
 
 ## State Management Implementations
 
