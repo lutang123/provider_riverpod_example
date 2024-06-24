@@ -1,30 +1,48 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample_app_state/list/add_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:sample_app_state/list/provider_list_widget.dart';
 import 'package:sample_app_state/list/riverpod_list_widget.dart';
 import 'package:sample_app_state/main.dart';
+import 'package:sample_app_state/todos/presentation/todo_screen.dart';
 
 class ListScreen extends StatelessWidget {
   const ListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    print('build ListScreen');
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('List Example'),
           actions: [
-            //*This is an example of using StateNotifierProvider to toggle theme
+            //*This is an example of using riverpod to toggle theme
             Consumer(builder: (context, ref, _) {
+              final isDarkMode = ref.watch(themeStateNotifierProvider);
               final themeStateNotifier =
                   ref.read(themeStateNotifierProvider.notifier);
-              return IconButton(
-                icon: const Icon(Icons.brightness_6),
-                onPressed: () {
-                  themeStateNotifier.toggleTheme();
-                },
+
+              final showBanner = ref.watch(bannerNotifierProvider);
+              final bannerNotifier = ref.read(bannerNotifierProvider.notifier);
+              return Row(
+                children: [
+                  IconButton(
+                    icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
+                    onPressed: () {
+                      themeStateNotifier.toggleTheme();
+                    },
+                  ),
+                  const SizedBox(width: 20),
+                  IconButton(
+                    icon: Icon(showBanner
+                        ? Icons.display_settings_outlined
+                        : Icons.disabled_by_default_outlined),
+                    onPressed: () {
+                      bannerNotifier.toggleBanner();
+                    },
+                  ),
+                ],
               );
             }),
           ],
@@ -46,7 +64,10 @@ class ListScreen extends StatelessWidget {
           backgroundColor: Colors.deepPurpleAccent,
           onPressed: () => Navigator.of(context).push<void>(
             MaterialPageRoute<void>(
-              builder: (context) => const AddListScreen(),
+              builder: (context) => Theme(
+                data: ThemeData.light(),
+                child: const TodoScreen(),
+              ),
             ),
           ),
           child: const Icon(Icons.arrow_forward),

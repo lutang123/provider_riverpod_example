@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:sample_app_state/counter/counter_home_screen.dart';
 import 'package:sample_app_state/counter/counter_state.dart';
 
+//* Note this is not complete testing code, just a snippet to show the difference between provider and riverpod to test
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
@@ -23,6 +24,15 @@ void main() {
       ),
     );
 
+// //* Testing the CounterScreen with StateNotifierProvider
+//   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+//     await tester.pumpWidget(
+//       ProviderScope(
+//         child: MaterialApp(
+//           home: CounterScreen(),
+//         ),
+//       ),
+//     );
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
     expect(find.text('1'), findsNothing);
@@ -36,55 +46,3 @@ void main() {
     expect(find.text('1'), findsOneWidget);
   });
 }
-
-// //* ChangeNotifier Implementation
-// class CounterNotifier extends ChangeNotifier {
-//   int _count = 0;
-//   int get count => _count;
-
-//   void increment() {
-//     _count++;
-//     notifyListeners();
-//   }
-// }
-
-// //* StateNotifier Implementation
-// class CounterNotifier extends StateNotifier<int> {
-//   CounterNotifier() : super(0);
-
-//   void increment() => state++;
-// }
-
-// // Provider definition
-// final counterProvider = StateNotifierProvider<CounterNotifier, int>((ref) => CounterNotifier());
-
-// //* Testing the CounterScreen with StateNotifierProvider
-// void main() {
-//   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-//     await tester.pumpWidget(
-//       ProviderScope(
-//         child: MaterialApp(
-//           home: CounterScreen(),
-//         ),
-//       ),
-//     );
-
-//     expect(find.text('0'), findsOneWidget);
-//     expect(find.text('1'), findsNothing);
-
-//     await tester.tap(find.byIcon(Icons.add));
-//     await tester.pump();
-
-//     expect(find.text('0'), findsNothing);
-//     expect(find.text('1'), findsOneWidget);
-//   });
-// }
-
-//
-// * Dependency Injection (DI) is a design pattern used to implement Inversion of Control for resolving dependencies. Instead of creating dependencies directly within a class, dependencies are provided to the class, making it more modular, testable, and easier to maintain.
-
-// Benefits of DI:
-
-// Decoupling: Makes code more modular by decoupling the creation of dependencies from their usage.
-// Testability: Simplifies testing by allowing easy replacement of real dependencies with mocks or stubs.
-// Flexibility: Enhances flexibility by enabling dynamic changing of dependencies.

@@ -1,6 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:async';
-//https://pub.dev/packages/riverpod_lint
+
+// * Dependency Injection (DI) is a design pattern used to implement Inversion of Control for resolving dependencies. Instead of creating dependencies directly within a class, dependencies are provided to the class, making it more modular, testable, and easier to maintain.
+
+// Benefits of DI:
+
+// Decoupling: Makes code more modular by decoupling the creation of dependencies from their usage.
+// Testability: Simplifies testing by allowing easy replacement of real dependencies with mocks or stubs.
+// Flexibility: Enhances flexibility by enabling dynamic changing of dependencies.
+
 //* example of usingAsyncNotifier*******************************************************************************************************************
 // 1. add the necessary imports
 
@@ -134,3 +142,4 @@ final authControllerProvider2 =
 
 // once with a temporary AsyncLoading value on first load
 // again with the new AsyncData value (or an AsyncError) when the initialization is complete
+

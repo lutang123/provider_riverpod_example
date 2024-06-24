@@ -7,6 +7,7 @@ class RiverpodCounterWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('build RiverpodCounterWidget');
     final count = ref.watch(counterProvider);
 
     return Center(

@@ -7,12 +7,14 @@ class ProviderCounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+   print('build ProviderCounterWidget');
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Consumer<CounterChangeNotifier>(
             builder: (context, counter, child) {
+              print('build Text in ProviderCounterWidget');
               return Text('Provider Count: ${counter.count}');
             },
           ),

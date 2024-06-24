@@ -8,12 +8,11 @@ This repository demonstrates two state management solutions in Flutter: `provide
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+- [YouTube Video](#youtube-video)
 - [State Management Implementations](#state-management-implementations)
   - [Provider](#provider)
   - [Riverpod](#riverpod)
 - [Comparison](#comparison)
-- [Screenshots](#screenshots)
-- [YouTube Video](#youtube-video)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -37,7 +36,7 @@ The app consists of 3 main features:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/provider_riverpod_example.git
+   git clone https://github.com/lutang123/provider_riverpod_example.git
    cd provider_riverpod_example
    ```
 
@@ -52,6 +51,10 @@ The app consists of 3 main features:
    ```bash
    flutter run
    ```
+
+## YouTube Video
+
+For a detailed explanation and walkthrough, check out the [YouTube video](https://youtu.be/your-video-link).
 
 ## State Management Implementations
 
@@ -96,7 +99,7 @@ class MyApp extends StatelessWidget {
 
 ### Riverpod
 
-`riverpod` is a state management library that improves upon `provider` by offering a more robust and testable solution.
+`riverpod` is a more than a state management library that improves upon `provider` by offering a more robust and testable solution, it's a reactive caching framework for Flutter/Dart.
 
 #### Example:
 
@@ -136,31 +139,14 @@ class MyApp extends StatelessWidget {
 
 - **Mutable State**: State can be directly modified, leading to potential unintended side effects.
 - **Performance**: All listeners are notified of changes, even if the specific part of the state they depend on hasn’t changed.
+- **Run time error**: It's easier to get run time error with provider, it's not very type safe too.
 
 ### Riverpod
 
 - **Immutable State**: State is immutable, promoting more predictable state management.
 - **Performance**: Only the relevant listeners are notified when the state changes.
-
-## Screensh
-
-### Counter Page
-
-- **Provider Tab**:
-  ![Provider Counter](path/to/provider_counter_screenshot.png)
-- **Riverpod Tab**:
-  ![Riverpod Counter](path/to/riverpod_counter_screenshot.png)
-
-### List Page
-
-- **Provider Tab**:
-  ![Provider List](path/to/provider_list_screenshot.png)
-- **Riverpod Tab**:
-  ![Riverpod List](path/to/riverpod_list_screenshot.png)
-
-## YouTube Video
-
-For a detailed explanation and walkthrough, check out the [YouTube video](https://youtu.be/your-video-link).
+- **Run time error**: It's harder to get run time error with riverpod, it's very type safe.
+- **And a lot more**
 
 ## Contributing
 

@@ -10,42 +10,46 @@ void main() {
     ProviderScope(
       //* not good practice, but just to show example on the differences of provider vs riverpod
       child: provider.MultiProvider(
-        providers: [
-          provider.ChangeNotifierProvider<CounterChangeNotifier>(
-              create: (_) => CounterChangeNotifier()),
-          provider.ChangeNotifierProvider<ListChangeNotifier>(
-              create: (_) => ListChangeNotifier()),
-          provider.ChangeNotifierProvider<ThemeChangeNotifier>(
-              create: (_) => ThemeChangeNotifier()),
-        ],
-        child:
-            // * this is just to show how to use the old ChangeNotifierProvider with Provider package
-            provider.Consumer<ThemeChangeNotifier>(
-                builder: (context, ThemeChangeNotifier themeNotifier, _) {
-          //* this Consumer is from riverpod
-          // return Consumer(builder: (context, WidgetRef ref, _) {
-            //     //* this is the code to show the syntax with riverpod StateNotifier and Notifier
-
-            // final isDarkModeStateNotifier =
-            //     ref.watch(themeStateNotifierProvider);
-
-            // final isDarkModeNotifier = ref.watch(themeNotifierProvider);
+          providers: [
+            provider.ChangeNotifierProvider<CounterChangeNotifier>(
+                create: (_) => CounterChangeNotifier()),
+            provider.ChangeNotifierProvider<ListChangeNotifier>(
+                create: (_) => ListChangeNotifier()),
+            provider.ChangeNotifierProvider<BannerChangeNotifier>(
+                create: (_) => BannerChangeNotifier()),
+            provider.ChangeNotifierProvider<ThemeChangeNotifier>(
+                create: (_) => ThemeChangeNotifier()),
+          ],
+          child:
+              // * this is just to show how to use the old ChangeNotifierProvider with Provider package
+              //  can not write this: final themeNotifier = Provider.of<ThemeChangeNotifier>(context);
+              //   provider.Consumer<BannerChangeNotifier>(
+              //       builder: (context, bannerNotifier, _) {
+              // return provider.Consumer<ThemeChangeNotifier>(
+              //     builder: (context, themeNotifier, _) {
+              //* The above nested Consumer is just to show how to use the old ChangeNotifierProvider with Provider package
+              // return
+              Consumer(builder: (context, WidgetRef ref, _) {
+            final isDarkModeStateNotifier =
+                ref.watch(themeStateNotifierProvider);
+            final showBanner = ref.watch(bannerNotifierProvider);
 
             return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: themeNotifier.isDarkMode
-                  ? ThemeData.dark()
-                  : ThemeData.light(),
-
-              //     //* this is the code to show the syntax with riverpod StateNotifier and Notifier
-              //     isDarkModeStateNotifier // isDarkModeNotifier
-              //         ? ThemeData.dark()
-              //         : ThemeData.light(),
+              debugShowCheckedModeBanner:
+                  // bannerNotifier.showBanner,
+                  showBanner,
+              theme:
+                  // themeNotifier.isDarkMode
+                  isDarkModeStateNotifier
+                      ? ThemeData.dark()
+                      : ThemeData.light(),
               home: const CounterHomeScreen(),
             );
+          })
+          // ;
           // });
-        }),
-      ),
+          // }),
+          ),
     ),
   );
 }
@@ -58,6 +62,17 @@ class ThemeChangeNotifier extends ChangeNotifier {
 
   void toggleTheme() {
     _isDarkMode = !_isDarkMode;
+    notifyListeners();
+  }
+}
+
+class BannerChangeNotifier extends ChangeNotifier {
+  bool _showBanner = false;
+
+  bool get showBanner => _showBanner;
+
+  void toggleBanner() {
+    _showBanner = !_showBanner;
     notifyListeners();
   }
 }
@@ -77,14 +92,14 @@ final themeStateNotifierProvider =
 });
 
 // * Using the new Notifier with Riverpod 2.0 * //
-class ThemeNotifier extends Notifier<bool> {
+class BannerNotifier extends Notifier<bool> {
   @override
-  bool build() => true; // initial state is dark mode
+  bool build() => false; // initial state
 
-  void toggleTheme() {
+  void toggleBanner() {
     state = !state;
   }
 }
 
-final themeNotifierProvider =
-    NotifierProvider<ThemeNotifier, bool>(ThemeNotifier.new);
+final bannerNotifierProvider =
+    NotifierProvider<BannerNotifier, bool>(BannerNotifier.new);

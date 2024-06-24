@@ -1,5 +1,5 @@
 import 'package:sample_app_state/counter/provider_counter_widget.dart';
-import 'package:sample_app_state/counter/riverpod_counter_screen.dart';
+import 'package:sample_app_state/counter/riverpod_counter_widget.dart';
 import 'package:sample_app_state/list/list_screen.dart';
 import 'package:sample_app_state/main.dart';
 import 'package:flutter/material.dart';
@@ -10,18 +10,36 @@ class CounterHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build CounterHomeScreen');
+    // //* This is an example of using provider to toggle theme
     final themeNotifier = provider.Provider.of<ThemeChangeNotifier>(context);
+    final isDarkMode = themeNotifier.isDarkMode;
+    final bannerNotifier = provider.Provider.of<BannerChangeNotifier>(context);
+    final showBanner = bannerNotifier.showBanner;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Counter Example'),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.brightness_6),
-              onPressed: () {
-                themeNotifier.toggleTheme();
-              },
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
+                  onPressed: () {
+                    themeNotifier.toggleTheme();
+                  },
+                ),
+                const SizedBox(width: 20),
+                IconButton(
+                  icon: Icon(showBanner
+                      ? Icons.display_settings_outlined
+                      : Icons.disabled_by_default_outlined),
+                  onPressed: () {
+                    bannerNotifier.toggleBanner();
+                  },
+                ),
+              ],
             ),
           ],
           bottom: const TabBar(

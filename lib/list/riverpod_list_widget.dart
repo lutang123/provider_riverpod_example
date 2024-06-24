@@ -7,6 +7,7 @@ class RiverpodListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('build RiverpodListWidget');
     final items = ref.watch(listProvider);
 
     return Column(
@@ -15,6 +16,7 @@ class RiverpodListWidget extends ConsumerWidget {
           child: ListView.builder(
             itemCount: items.length,
             itemBuilder: (context, index) {
+              print('build ListTile ${index + 1} in RiverpodListWidget');
               return ListTile(title: Text('${index + 1}. ${items[index]}'));
             },
           ),
@@ -22,7 +24,7 @@ class RiverpodListWidget extends ConsumerWidget {
         const Divider(),
         const Padding(
           padding: EdgeInsets.all(8.0),
-          child: _AddItemButton(),
+          child: RiverpodAddItemButton(),
         ),
         const SizedBox(height: 20),
       ],
@@ -30,15 +32,17 @@ class RiverpodListWidget extends ConsumerWidget {
   }
 }
 
-class _AddItemButton extends ConsumerWidget {
-  const _AddItemButton();
+class RiverpodAddItemButton extends ConsumerWidget {
+  const RiverpodAddItemButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final listNotifier = ref.read(listProvider.notifier);
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          ref.read(listProvider.notifier).addItem('Item ${DateTime.now()}');
+          // riverpod is type safe, so you can't directly modify the state
+          listNotifier.addItem('Riverpod Item ${DateTime.now()}');
         },
         child: const Text('Add Item'),
       ),

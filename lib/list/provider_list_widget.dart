@@ -9,6 +9,7 @@ class ProviderListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build ProviderListWidget');
     return Column(
       children: [
         Expanded(
@@ -17,6 +18,7 @@ class ProviderListWidget extends StatelessWidget {
               return ListView.builder(
                 itemCount: itemNotifier.items.length,
                 itemBuilder: (context, index) {
+                  print('build ListTile ${index + 1} in ProviderListWidget');
                   return ListTile(
                       title:
                           Text('${index + 1}. ${itemNotifier.items[index]}'));
@@ -28,7 +30,7 @@ class ProviderListWidget extends StatelessWidget {
         const Divider(),
         const Padding(
           padding: EdgeInsets.all(8.0),
-          child: _AddItemButton(),
+          child: ProviderAddItemButton (),
         ),
         const SizedBox(height: 20),
       ],
@@ -36,25 +38,43 @@ class ProviderListWidget extends StatelessWidget {
   }
 }
 
-class _AddItemButton extends StatelessWidget {
-  const _AddItemButton();
+
+
+class ProviderAddItemButton extends StatelessWidget {
+  const ProviderAddItemButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ElevatedButton(
-        onPressed: () {
-          context.read<ListChangeNotifier>().addItem('Item ${DateTime.now()}');
-        },
-        child: const Text('Add Item'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              context
+                  .read<ListChangeNotifier>()
+                  .addItem('Provider Item ${DateTime.now()}');
+            },
+            child: const Text('Add Item'),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              wrongFunction(context);
+            },
+            child: const Text('Wrong Button'),
+          ),
+        ],
       ),
     );
   }
 
-  // Somewhere else in your app
-  void someFunction(BuildContext context) {
-    final itemNotifier = context.read<ListChangeNotifier>();
-    itemNotifier.items.add('Untracked Item'); // Directly modifying the state
+  void wrongFunction(BuildContext context) {
     // No notifyListeners() called, so widgets listening to the state are not updated
+    //* if we remover the type of itemNotifier, the complier will not complain
+    final itemNotifier = context.read<ListChangeNotifier>();
+    //* provider can access and attempting to change the state (items) in other widget, this is a wrong way to update the state, but complier will not complain
+    itemNotifier.items.add('Untracked Item'); // Directly modifying the state
   }
 }
