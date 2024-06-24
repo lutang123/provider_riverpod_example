@@ -1,6 +1,6 @@
 # Provider and Riverpod State Management Example
 
-This repository demonstrates two state management solutions in Flutter: `provider` and `riverpod`. The app includes a counter page and a list page, each with tabs to showcase the implementation using both `provider` and `riverpod`.
+This repository demonstrates two state management solutions in Flutter: `provider` and `riverpod`. The app includes a counter page, a list page and a Todo app page, each page is created with different kind of providers to showcase the differences and pros and cons.
 
 ## Table of Contents
 
@@ -19,12 +19,11 @@ This repository demonstrates two state management solutions in Flutter: `provide
 
 ## About the App
 
-The app consists of two main features:
+The app consists of 3 main features:
 
 1. **Counter Page**: Demonstrates a simple counter using `provider` and `riverpod`.
 2. **List Page**: Displays a list of items, managed separately by `provider` and `riverpod`.
-
-Each feature is accessible via a tab bar, allowing easy comparison of the two state management approaches.
+3. **Todos Page**: A sample App with `riverpod 2.0`:
 
 ## Getting Started
 
@@ -143,7 +142,7 @@ class MyApp extends StatelessWidget {
 - **Immutable State**: State is immutable, promoting more predictable state management.
 - **Performance**: Only the relevant listeners are notified when the state changes.
 
-## Screenshots
+## Screensh
 
 ### Counter Page
 

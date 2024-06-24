@@ -15,23 +15,43 @@ void main() {
               create: (_) => CounterChangeNotifier()),
           provider.ChangeNotifierProvider<ListChangeNotifier>(
               create: (_) => ListChangeNotifier()),
-          provider.ChangeNotifierProvider(create: (_) => ThemeNotifier()),
+          provider.ChangeNotifierProvider<ThemeChangeNotifier>(
+              create: (_) => ThemeChangeNotifier()),
         ],
-        child: provider.Consumer<ThemeNotifier>(
-            builder: (context, themeNotifier, _) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme:
-                themeNotifier.isDarkMode ? ThemeData.dark() : ThemeData.light(),
-            home: const CounterHomeScreen(),
-          );
+        child:
+            // * this is just to show how to use the old ChangeNotifierProvider with Provider package
+            provider.Consumer<ThemeChangeNotifier>(
+                builder: (context, ThemeChangeNotifier themeNotifier, _) {
+          //* this Consumer is from riverpod
+          // return Consumer(builder: (context, WidgetRef ref, _) {
+            //     //* this is the code to show the syntax with riverpod StateNotifier and Notifier
+
+            // final isDarkModeStateNotifier =
+            //     ref.watch(themeStateNotifierProvider);
+
+            // final isDarkModeNotifier = ref.watch(themeNotifierProvider);
+
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: themeNotifier.isDarkMode
+                  ? ThemeData.dark()
+                  : ThemeData.light(),
+
+              //     //* this is the code to show the syntax with riverpod StateNotifier and Notifier
+              //     isDarkModeStateNotifier // isDarkModeNotifier
+              //         ? ThemeData.dark()
+              //         : ThemeData.light(),
+              home: const CounterHomeScreen(),
+            );
+          // });
         }),
       ),
     ),
   );
 }
 
-class ThemeNotifier extends ChangeNotifier {
+// * Using ChangeNotifier with Provider package * //
+class ThemeChangeNotifier extends ChangeNotifier {
   bool _isDarkMode = true;
 
   bool get isDarkMode => _isDarkMode;
@@ -41,3 +61,30 @@ class ThemeNotifier extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+// * Using StateNotifier with Riverpod * //
+class ThemeStateNotifier extends StateNotifier<bool> {
+  ThemeStateNotifier() : super(true);
+
+  void toggleTheme() {
+    state = !state;
+  }
+}
+
+final themeStateNotifierProvider =
+    StateNotifierProvider<ThemeStateNotifier, bool>((ref) {
+  return ThemeStateNotifier();
+});
+
+// * Using the new Notifier with Riverpod 2.0 * //
+class ThemeNotifier extends Notifier<bool> {
+  @override
+  bool build() => true; // initial state is dark mode
+
+  void toggleTheme() {
+    state = !state;
+  }
+}
+
+final themeNotifierProvider =
+    NotifierProvider<ThemeNotifier, bool>(ThemeNotifier.new);

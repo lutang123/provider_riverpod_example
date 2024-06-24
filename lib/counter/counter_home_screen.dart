@@ -10,7 +10,7 @@ class CounterHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = provider.Provider.of<ThemeNotifier>(context);
+    final themeNotifier = provider.Provider.of<ThemeChangeNotifier>(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(

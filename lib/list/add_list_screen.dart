@@ -1,28 +1,31 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sample_app_state/list/list_state.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:provider/provider.dart' as provider;
 import 'package:sample_app_state/main.dart';
+import 'package:sample_app_state/todos/presentation/todo_screen.dart';
 
 class AddListScreen extends StatelessWidget {
   const AddListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = provider.Provider.of<ThemeNotifier>(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Add List Example'),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.brightness_6),
-              onPressed: () {
-                themeNotifier.toggleTheme();
-              },
-            ),
+            //*This is an example of using NotifierProvider to toggle theme
+            Consumer(builder: (context, ref, _) {
+              final themeNotifier = ref.read(themeNotifierProvider.notifier);
+              return IconButton(
+                icon: const Icon(Icons.brightness_6),
+                onPressed: () {
+                  themeNotifier.toggleTheme();
+                },
+              );
+            }),
           ],
           bottom: const TabBar(
             tabs: [
@@ -36,6 +39,19 @@ class AddListScreen extends StatelessWidget {
             ProviderAddWidget(),
             RiverpodAddWidget(),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          heroTag: "btn add list",
+          backgroundColor: Colors.deepPurpleAccent,
+          onPressed: () => Navigator.of(context).push<void>(
+            MaterialPageRoute<void>(
+              builder: (context) => Theme(
+                data: ThemeData.light(),
+                child: const TodoScreen(),
+              ),
+            ),
+          ),
+          child: const Icon(Icons.arrow_forward),
         ),
       ),
     );
