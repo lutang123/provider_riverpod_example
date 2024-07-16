@@ -26,7 +26,7 @@ final counterProvider = StateNotifierProvider<CounterStateNotifier, int>((ref) {
   return CounterStateNotifier();
 });
 
-// * example of using the new Notifier *******************************************************************************************************************
+// * example of using the riverpod 2.0 Notifier *******************************************************************************************************************
 class CounterNotifier extends Notifier<int> {
   @override
   int build() {
@@ -46,8 +46,25 @@ final counterProviderNotifierProvider =
 final counterProviderNotifierProvider2 =
     NotifierProvider<CounterNotifier, int>(CounterNotifier.new);
 
-class CounterWidget extends ConsumerWidget {
-  const CounterWidget({super.key});
+// * example of riverpod 2.0 Notifier code generation *******************************************************************************************************************
+
+// /// Annotating a class by `@riverpod` defines a new shared state for your application,
+// // return the initial state of your shared state
+// //It is totally acceptable for this function to return a [Future] or [Stream] if you need to
+// //You can also freely define parameters on this method.
+// @riverpod
+// class Counter extends _$Counter {
+//   @override
+//   int build() => 0;
+
+//   void increment() => state++;
+// }
+
+
+
+// ignore: unused_element
+class _CounterWidget extends ConsumerWidget {
+  const _CounterWidget();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

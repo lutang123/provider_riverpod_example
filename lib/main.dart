@@ -8,28 +8,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 void main() {
   runApp(
     ProviderScope(
-      //* not good practice, but just to show example on the differences of provider vs riverpod
-      child: provider.MultiProvider(
-          providers: [
-            provider.ChangeNotifierProvider<CounterChangeNotifier>(
-                create: (_) => CounterChangeNotifier()),
-            provider.ChangeNotifierProvider<ListChangeNotifier>(
-                create: (_) => ListChangeNotifier()),
-            provider.ChangeNotifierProvider<BannerChangeNotifier>(
-                create: (_) => BannerChangeNotifier()),
-            provider.ChangeNotifierProvider<ThemeChangeNotifier>(
-                create: (_) => ThemeChangeNotifier()),
-          ],
-          child:
-              // * this is just to show how to use the old ChangeNotifierProvider with Provider package
-              //  can not write this: final themeNotifier = Provider.of<ThemeChangeNotifier>(context);
-              //   provider.Consumer<BannerChangeNotifier>(
-              //       builder: (context, bannerNotifier, _) {
-              // return provider.Consumer<ThemeChangeNotifier>(
-              //     builder: (context, themeNotifier, _) {
-              //* The above nested Consumer is just to show how to use the old ChangeNotifierProvider with Provider package
-              // return
-              Consumer(builder: (context, WidgetRef ref, _) {
+      child:
+          //* having both ProviderScope and Provides is not good, but this is just to show example on the differences of provider vs riverpod
+
+          provider.MultiProvider(
+        providers: [
+          provider.ChangeNotifierProvider<CounterChangeNotifier>(
+              create: (_) => CounterChangeNotifier()),
+          provider.ChangeNotifierProvider<ListChangeNotifier>(
+              create: (_) => ListChangeNotifier()),
+          provider.ChangeNotifierProvider<BannerChangeNotifier>(
+              create: (_) => BannerChangeNotifier()),
+          provider.ChangeNotifierProvider<ThemeChangeNotifier>(
+              create: (_) => ThemeChangeNotifier()),
+        ],
+        child:
+            // * this is just to show how to use the old ChangeNotifierProvider with Provider package
+            //  can not write this: final themeNotifier = Provider.of<ThemeChangeNotifier>(context);
+            //   provider.Consumer<BannerChangeNotifier>(
+            //       builder: (context, bannerNotifier, _) {
+            // return provider.Consumer<ThemeChangeNotifier>(
+            //     builder: (context, themeNotifier, _) {
+            //* The above nested Consumer is just to show how to use the old ChangeNotifierProvider with Provider package
+            // return
+
+            Consumer(
+          builder: (context, WidgetRef ref, _) {
             final isDarkModeStateNotifier =
                 ref.watch(themeStateNotifierProvider);
             final showBanner = ref.watch(bannerNotifierProvider);
@@ -45,36 +49,11 @@ void main() {
                       : ThemeData.light(),
               home: const CounterHomeScreen(),
             );
-          })
-          // ;
-          // });
-          // }),
-          ),
+          },
+        ),
+      ),
     ),
   );
-}
-
-// * Using ChangeNotifier with Provider package * //
-class ThemeChangeNotifier extends ChangeNotifier {
-  bool _isDarkMode = true;
-
-  bool get isDarkMode => _isDarkMode;
-
-  void toggleTheme() {
-    _isDarkMode = !_isDarkMode;
-    notifyListeners();
-  }
-}
-
-class BannerChangeNotifier extends ChangeNotifier {
-  bool _showBanner = false;
-
-  bool get showBanner => _showBanner;
-
-  void toggleBanner() {
-    _showBanner = !_showBanner;
-    notifyListeners();
-  }
 }
 
 // * Using StateNotifier with Riverpod * //
@@ -103,3 +82,26 @@ class BannerNotifier extends Notifier<bool> {
 
 final bannerNotifierProvider =
     NotifierProvider<BannerNotifier, bool>(BannerNotifier.new);
+
+// * Using ChangeNotifier with Provider package * //
+class ThemeChangeNotifier extends ChangeNotifier {
+  bool _isDarkMode = true;
+
+  bool get isDarkMode => _isDarkMode;
+
+  void toggleTheme() {
+    _isDarkMode = !_isDarkMode;
+    notifyListeners();
+  }
+}
+
+class BannerChangeNotifier extends ChangeNotifier {
+  bool _showBanner = false;
+
+  bool get showBanner => _showBanner;
+
+  void toggleBanner() {
+    _showBanner = !_showBanner;
+    notifyListeners();
+  }
+}
