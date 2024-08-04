@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample_app_state/counter/counter_state.dart';
+import 'package:provider_vs_riverpod/counter/counter_state.dart';
 
 class RiverpodCounterWidget extends ConsumerWidget {
   const RiverpodCounterWidget({super.key});
@@ -27,5 +27,3 @@ class RiverpodCounterWidget extends ConsumerWidget {
     );
   }
 }
-
-

@@ -10,9 +10,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sample_app_state/counter/counter_home_screen.dart';
-import 'package:sample_app_state/todos/domain/providers.dart';
-
+import 'package:provider_vs_riverpod/counter/counter_home_screen.dart';
+import 'package:provider_vs_riverpod/todos/domain/providers.dart';
 
 //testing code for counter app
 // void main() {

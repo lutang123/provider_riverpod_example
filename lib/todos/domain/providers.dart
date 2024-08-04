@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample_app_state/todos/domain/todo.dart';
+import 'package:provider_vs_riverpod/todos/domain/todo.dart';
 
 /// Some keys used for testing
 final addTodoKey = UniqueKey();

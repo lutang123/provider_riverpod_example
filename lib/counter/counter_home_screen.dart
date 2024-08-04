@@ -1,7 +1,7 @@
-import 'package:sample_app_state/counter/provider_counter_widget.dart';
-import 'package:sample_app_state/counter/riverpod_counter_widget.dart';
-import 'package:sample_app_state/list/list_screen.dart';
-import 'package:sample_app_state/main.dart';
+import 'package:provider_vs_riverpod/counter/provider_counter_widget.dart';
+import 'package:provider_vs_riverpod/counter/riverpod_counter_widget.dart';
+import 'package:provider_vs_riverpod/list/list_screen.dart';
+import 'package:provider_vs_riverpod/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as provider;
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_app_state/list/list_state.dart';
+import 'package:provider_vs_riverpod/list/list_state.dart';
 
 class ProviderListWidget extends StatelessWidget {
   const ProviderListWidget({
@@ -30,15 +30,13 @@ class ProviderListWidget extends StatelessWidget {
         const Divider(),
         const Padding(
           padding: EdgeInsets.all(8.0),
-          child: ProviderAddItemButton (),
+          child: ProviderAddItemButton(),
         ),
         const SizedBox(height: 20),
       ],
     );
   }
 }
-
-
 
 class ProviderAddItemButton extends StatelessWidget {
   const ProviderAddItemButton({super.key});

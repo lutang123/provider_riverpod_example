@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sample_app_state/todos/domain/providers.dart';
-import 'package:sample_app_state/todos/domain/todo.dart';
+import 'package:provider_vs_riverpod/todos/domain/providers.dart';
+import 'package:provider_vs_riverpod/todos/domain/todo.dart';
 
 class TodoScreen extends HookConsumerWidget {
   const TodoScreen({super.key});

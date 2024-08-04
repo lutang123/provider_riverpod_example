@@ -1,4 +1,4 @@
-name: sample_app_state
+name: provider_vs_riverpod
 description: "A new Flutter project to compare provider and riverpod on managing state."
 publish_to: "none"
 version: 0.1.0

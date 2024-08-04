@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sample_app_state/list/list_state.dart';
+import 'package:provider_vs_riverpod/list/list_state.dart';
 
 class RiverpodListWidget extends ConsumerWidget {
   const RiverpodListWidget({super.key});

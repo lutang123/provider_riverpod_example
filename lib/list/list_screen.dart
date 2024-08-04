@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:sample_app_state/list/provider_list_widget.dart';
-import 'package:sample_app_state/list/riverpod_list_widget.dart';
-import 'package:sample_app_state/main.dart';
-import 'package:sample_app_state/todos/presentation/todo_screen.dart';
+import 'package:provider_vs_riverpod/list/provider_list_widget.dart';
+import 'package:provider_vs_riverpod/list/riverpod_list_widget.dart';
+import 'package:provider_vs_riverpod/main.dart';
+import 'package:provider_vs_riverpod/todos/presentation/todo_screen.dart';
 
 class ListScreen extends StatelessWidget {
   const ListScreen({super.key});

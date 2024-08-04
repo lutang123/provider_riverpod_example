@@ -1,4 +1,4 @@
-package com.example.sample_app_state
+package com.example.provider_vs_riverpod
 
 import io.flutter.embedding.android.FlutterActivity
 

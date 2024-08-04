@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sample_app_state/counter/counter_state.dart';
+import 'package:provider_vs_riverpod/counter/counter_state.dart';
 
 class ProviderCounterWidget extends StatelessWidget {
   const ProviderCounterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-   print('build ProviderCounterWidget');
+    print('build ProviderCounterWidget');
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
