@@ -8,7 +8,7 @@ class RiverpodListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print('build RiverpodListWidget');
-    final items = ref.watch(listProvider);
+    final items = ref.watch(listProviderWithStateNotifier);
 
     return Column(
       children: [
@@ -37,7 +37,7 @@ class RiverpodAddItemButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listNotifier = ref.read(listProvider.notifier);
+    final listNotifier = ref.read(listProviderWithStateNotifier.notifier);
     return Center(
       child: ElevatedButton(
         onPressed: () {
