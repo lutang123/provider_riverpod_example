@@ -3,9 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:provider_vs_riverpod/list/list_state.dart';
 
 class ProviderListWidget extends StatelessWidget {
-  const ProviderListWidget({
-    super.key,
-  });
+  const ProviderListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +13,12 @@ class ProviderListWidget extends StatelessWidget {
         Expanded(
           child: Consumer<ListChangeNotifier>(
             builder: (context, itemNotifier, child) {
+              final items = itemNotifier.items;
               return ListView.builder(
-                itemCount: itemNotifier.items.length,
+                itemCount: items.length,
                 itemBuilder: (context, index) {
                   print('build ListTile ${index + 1} in ProviderListWidget');
-                  return ListTile(
-                      title:
-                          Text('${index + 1}. ${itemNotifier.items[index]}'));
+                  return ListTile(title: Text('${index + 1}. ${items[index]}'));
                 },
               );
             },

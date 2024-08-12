@@ -11,37 +11,37 @@ class CounterHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('build CounterHomeScreen');
-    // //* This is an example of using provider to toggle theme
-    final themeNotifier = provider.Provider.of<ThemeChangeNotifier>(context);
-    final isDarkMode = themeNotifier.isDarkMode;
-    final bannerNotifier = provider.Provider.of<BannerChangeNotifier>(context);
-    final showBanner = bannerNotifier.showBanner;
+    // //* This is an example of using provider package to toggle theme and banner
+    // final themeNotifier = provider.Provider.of<ThemeChangeNotifier>(context);
+    // final isDarkMode = themeNotifier.isDarkMode;
+    // final bannerNotifier = provider.Provider.of<BannerChangeNotifier>(context);
+    // final showBanner = bannerNotifier.showBanner;
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Counter Example'),
-          actions: [
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
-                  onPressed: () {
-                    themeNotifier.toggleTheme();
-                  },
-                ),
-                const SizedBox(width: 20),
-                IconButton(
-                  icon: Icon(showBanner
-                      ? Icons.display_settings_outlined
-                      : Icons.disabled_by_default_outlined),
-                  onPressed: () {
-                    bannerNotifier.toggleBanner();
-                  },
-                ),
-              ],
-            ),
-          ],
+          // actions: [
+          //   Row(
+          //     children: [
+          //       IconButton(
+          //         icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
+          //         onPressed: () {
+          //           themeNotifier.toggleTheme();
+          //         },
+          //       ),
+          //       const SizedBox(width: 20),
+          //       IconButton(
+          //         icon: Icon(showBanner
+          //             ? Icons.display_settings_outlined
+          //             : Icons.disabled_by_default_outlined),
+          //         onPressed: () {
+          //           bannerNotifier.toggleBanner();
+          //         },
+          //       ),
+          //     ],
+          //   ),
+          // ],
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Provider'),

@@ -17,7 +17,7 @@ class ListScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('List Example'),
           actions: [
-            //*This is an example of using riverpod to toggle theme
+            //*This is an example of using riverpod to toggle theme and banner
             Consumer(builder: (context, ref, _) {
               final isDarkMode = ref.watch(themeStateNotifierProvider);
               final themeStateNotifier =

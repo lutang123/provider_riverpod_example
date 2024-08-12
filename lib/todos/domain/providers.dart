@@ -8,11 +8,12 @@ final activeFilterKey = UniqueKey();
 final completedFilterKey = UniqueKey();
 final allFilterKey = UniqueKey();
 
-/// Creates a [TodoList] and initialise it with pre-defined values.
+/// Creates a [TodoListNotifier] and initialise it with pre-defined values.
 ///
 /// We are using [StateNotifierProvider] here as a `List<Todo>` is a complex
 /// object, with advanced business logic like how to edit a todo.
-final todoListProvider = NotifierProvider<TodoList, List<Todo>>(TodoList.new);
+final todoListProvider =
+    NotifierProvider<TodoListNotifier, List<Todo>>(TodoListNotifier.new);
 
 /// The different ways to filter the list of todos
 enum TodoListFilter {

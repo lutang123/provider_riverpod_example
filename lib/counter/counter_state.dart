@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// * example of using provider with ChangeNotifier *******************************************************************************************************************
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'counter_state.g.dart';
+
+// * example of using provider package with ChangeNotifier *******************************************************************************************************************
 // *** Flutter itself has two primary notifiers: ChangeNotifier and ValueNotifier ***
 // *** A ChangeNotifier is a class that can be extended or mixed in to provide a change notification mechanism. It is commonly used for managing and notifying listeners about state changes.
 class CounterChangeNotifier extends ChangeNotifier {
@@ -14,7 +18,7 @@ class CounterChangeNotifier extends ChangeNotifier {
   }
 }
 
-// * example of using riverpod with StateNotifier *******************************************************************************************************************
+// * example of using riverpod package with StateNotifier *******************************************************************************************************************
 class CounterStateNotifier extends StateNotifier<int> {
   CounterStateNotifier() : super(0);
 
@@ -22,7 +26,7 @@ class CounterStateNotifier extends StateNotifier<int> {
 }
 
 //riverpod provider is global, so it can be accessed from anywhere in the app
-final counterProvider = StateNotifierProvider<CounterStateNotifier, int>((ref) {
+final counterProviderWithStateNotifier = StateNotifierProvider<CounterStateNotifier, int>((ref) {
   return CounterStateNotifier();
 });
 
@@ -38,7 +42,7 @@ class CounterNotifier extends Notifier<int> {
   }
 }
 
-final counterProviderNotifierProvider =
+final counterProviderWithNotifier =
     NotifierProvider<CounterNotifier, int>(() {
   return CounterNotifier();
 });
@@ -46,35 +50,35 @@ final counterProviderNotifierProvider =
 final counterProviderNotifierProvider2 =
     NotifierProvider<CounterNotifier, int>(CounterNotifier.new);
 
+
 // * example of riverpod 2.0 Notifier code generation *******************************************************************************************************************
+/// Annotating a class by `@riverpod` defines a new shared state for your application,
+// return the initial state of your shared state
+//It is totally acceptable for this function to return a [Future] or [Stream] if you need to
+//You can also freely define parameters on this method.
+@riverpod
+class Counter extends _$Counter {
+  @override
+  int build() => 0;
 
-// /// Annotating a class by `@riverpod` defines a new shared state for your application,
-// // return the initial state of your shared state
-// //It is totally acceptable for this function to return a [Future] or [Stream] if you need to
-// //You can also freely define parameters on this method.
-// @riverpod
-// class Counter extends _$Counter {
-//   @override
-//   int build() => 0;
-
-//   void increment() => state++;
-// }
+  void increment() => state++;
+}
+//above code will generate counterProvider, run "flutter pub run build_runner watch" on Terminal to generate the code
 
 
 
-// ignore: unused_element
-class _CounterWidget extends ConsumerWidget {
-  const _CounterWidget();
+class CounterWidget2 extends ConsumerWidget {
+  const CounterWidget2({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // 1. watch the provider and rebuild when the value changes
-    final counter = ref.watch(counterProvider);
+    final counter = ref.watch(counterProviderWithStateNotifier);
     return ElevatedButton(
       // 2. use the value
       child: Text('Value: $counter'),
       // 3. change the state inside a button callback
-      onPressed: () => ref.read(counterProvider.notifier).increment,
+      onPressed: () => ref.read(counterProviderWithStateNotifier.notifier).increment,
     );
   }
 }
@@ -87,12 +91,12 @@ class MyApp2 extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(_counterStateProvider);
+    final counter = ref.watch(_counterStateProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('StateProvider Example')),
       body: Center(
-        child: Text('Count: $count'),
+        child: Text('Count: $counter'),
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: "btn1",
@@ -132,21 +136,6 @@ class MyApp3 extends StatelessWidget {
   }
 }
 
-//* https://pub.dev/packages/provider#-readme-tab-
-// ValueListenableProvider is removed
-
-// To migrate, you can instead use Provider combined with ValueListenableBuilder:
-
-// ValueListenableBuilder<int>(
-//   valueListenable: myValueListenable,
-//   builder: (context, value, _) {
-//     return Provider<int>.value(
-//       value: value,
-//       child: MyApp(),
-//     );
-//   }
-// )
-
 // //* example of NOT using provider or any package *******************************************************************************************************************
 // class CounterInheritedNotifier
 //     extends InheritedNotifier<CounterChangeNotifier> {
@@ -162,7 +151,6 @@ class MyApp3 extends StatelessWidget {
 //   }
 // }
 
-// //* example of NOT using provider or any package *******************************************************************************************************************
 // class MyApp2 extends StatelessWidget {
 //   const MyApp2({super.key});
 

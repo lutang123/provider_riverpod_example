@@ -24,7 +24,7 @@ class Todo {
 }
 
 /// An object that controls a list of [Todo].
-class TodoList extends Notifier<List<Todo>> {
+class TodoListNotifier extends Notifier<List<Todo>> {
   @override
   List<Todo> build() => [
         const Todo(id: 'todo-0', description: 'Buy cookies'),
