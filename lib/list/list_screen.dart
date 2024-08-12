@@ -1,8 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:provider_vs_riverpod/list/provider_list_widget.dart';
 import 'package:provider_vs_riverpod/list/riverpod_list_widget.dart';
-import 'package:provider_vs_riverpod/main.dart';
 import 'package:provider_vs_riverpod/todos/presentation/todo_screen.dart';
 
 class ListScreen extends StatelessWidget {
@@ -16,36 +14,6 @@ class ListScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('List Example'),
-          actions: [
-            //*This is an example of using riverpod to toggle theme and banner
-            Consumer(builder: (context, ref, _) {
-              final isDarkMode = ref.watch(themeStateNotifierProvider);
-              final themeStateNotifier =
-                  ref.read(themeStateNotifierProvider.notifier);
-
-              final showBanner = ref.watch(bannerNotifierProvider);
-              final bannerNotifier = ref.read(bannerNotifierProvider.notifier);
-              return Row(
-                children: [
-                  IconButton(
-                    icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
-                    onPressed: () {
-                      themeStateNotifier.toggleTheme();
-                    },
-                  ),
-                  const SizedBox(width: 20),
-                  IconButton(
-                    icon: Icon(showBanner
-                        ? Icons.display_settings_outlined
-                        : Icons.disabled_by_default_outlined),
-                    onPressed: () {
-                      bannerNotifier.toggleBanner();
-                    },
-                  ),
-                ],
-              );
-            }),
-          ],
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Provider'),

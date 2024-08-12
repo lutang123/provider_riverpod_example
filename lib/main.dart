@@ -12,7 +12,7 @@ void main() {
           //* having both ProviderScope and Provides is not good, but this is just to show example on the differences of provider vs riverpod
           provider.MultiProvider(
         providers: [
-          //* isuue with provider package is that if we have two providers with the same type, it's hard to differentiate them
+          //* issue with provider package is that if we have two providers with the same type, it's hard to differentiate them
           provider.ChangeNotifierProvider<CounterChangeNotifier>(
               create: (_) => CounterChangeNotifier()),
           provider.ChangeNotifierProvider<ListChangeNotifier>(
@@ -61,7 +61,7 @@ void main() {
 
 // * Using StateNotifier with Riverpod * //
 class ThemeStateNotifier extends StateNotifier<bool> {
-  ThemeStateNotifier() : super(true);
+  ThemeStateNotifier() : super(false); // initial state
 
   void toggleTheme() {
     state = !state;

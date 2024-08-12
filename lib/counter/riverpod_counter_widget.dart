@@ -8,13 +8,19 @@ class RiverpodCounterWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print('build RiverpodCounterWidget');
-    final count = ref.watch(counterProvider);
 
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text('Riverpod Count: $count'),
+          Consumer(
+            builder: (context, ref, child) {
+              //**Note: counterProvider is a generated provider and by default with Auto dispose, so everytime when we reload the page, the count value is always set at 0 */
+              final count = ref.watch(counterProvider);
+              print('build Text in RiverpodCounterWidget: $count');
+              return Text('Riverpod Count: $count');
+            },
+          ),
           FloatingActionButton(
             heroTag: "btn2",
             onPressed: () {

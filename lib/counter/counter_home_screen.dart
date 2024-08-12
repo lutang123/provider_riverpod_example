@@ -1,9 +1,10 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:provider_vs_riverpod/counter/provider_counter_widget.dart';
 import 'package:provider_vs_riverpod/counter/riverpod_counter_widget.dart';
 import 'package:provider_vs_riverpod/list/list_screen.dart';
 import 'package:provider_vs_riverpod/main.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart' as provider;
+// import 'package:provider/provider.dart' as provider;
 
 class CounterHomeScreen extends StatelessWidget {
   const CounterHomeScreen({super.key});
@@ -21,6 +22,7 @@ class CounterHomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Counter Example'),
+          // //* This is an example of using provider package to toggle theme and banner
           // actions: [
           //   Row(
           //     children: [
@@ -42,6 +44,36 @@ class CounterHomeScreen extends StatelessWidget {
           //     ],
           //   ),
           // ],
+          actions: [
+            //*This is an example of using riverpod to toggle theme and banner
+            Consumer(builder: (context, ref, _) {
+              final isDarkMode = ref.watch(themeStateNotifierProvider);
+              final themeStateNotifier =
+                  ref.read(themeStateNotifierProvider.notifier);
+
+              final showBanner = ref.watch(bannerNotifierProvider);
+              final bannerNotifier = ref.read(bannerNotifierProvider.notifier);
+              return Row(
+                children: [
+                  IconButton(
+                    icon: Icon(isDarkMode ? Icons.dark_mode : Icons.light_mode),
+                    onPressed: () {
+                      themeStateNotifier.toggleTheme();
+                    },
+                  ),
+                  const SizedBox(width: 20),
+                  IconButton(
+                    icon: Icon(showBanner
+                        ? Icons.display_settings_outlined
+                        : Icons.disabled_by_default_outlined),
+                    onPressed: () {
+                      bannerNotifier.toggleBanner();
+                    },
+                  ),
+                ],
+              );
+            }),
+          ],
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Provider'),

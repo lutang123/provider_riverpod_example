@@ -14,7 +14,7 @@ class ProviderCounterWidget extends StatelessWidget {
         children: [
           Consumer<CounterChangeNotifier>(
             builder: (context, counter, child) {
-              print('build Text in ProviderCounterWidget');
+              print('build Text in ProviderCounterWidget: ${counter.count}');
               return Text('Provider Count: ${counter.count}');
             },
           ),
